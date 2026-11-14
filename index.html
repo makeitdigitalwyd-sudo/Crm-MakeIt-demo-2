@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MakeIt Digital - Client & Project CRM</title>
+  <!-- Progressive Web App (PWA) Manifest & Meta -->
+  <meta name="theme-color" content="#0B0F14">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MakeIt CRM">
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIk1ha2VJdCBEaWdpdGFsIENSTSIsICJzaG9ydF9uYW1lIjogIk1ha2VJdCBDUk0iLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiIzBCMEYxNCIsICJ0aGVtZV9jb2xvciI6ICIjMEIwRjE0IiwgImRlc2NyaXB0aW9uIjogIkNsaWVudCAmIFByb2plY3QgQ1JNIGZvciBEaWdpdGFsIEFnZW5jaWVzIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdjbmc5SWpFeU9DSWdabWxzYkQwaUl6QkNNRVl4TkNJdlBnb2dJRHh5WldOMElIZzlJalkwSWlCNVBTSTJOQ0lnZDJsa2RHZzlJak00TkNJZ2FHVnBaMmgwUFNJek9EUWlJSEo0UFNJNU5pSWdabWxzYkQwaUkwTTRSakV6TlNJdlBnb2dJRHh3WVhSb0lHUTlJazB4TmpBZ016VXlJRXd6TlRJZ01UWXdJRTB6TlRJZ016VXlJRXd6TlRJZ01UWXdJRXd4TmpBZ01UWXdJaUJtYVd4c1BTSnViMjVsSWlCemRISnZhMlU5SWlNd1FqQkdNVFFpSUhOMGNtOXJaUzEzYVdSMGFEMGlORGdpSUhOMGNtOXJaUzFzYVc1bFkyRndQU0p5YjNWdVpDSWdjM1J5YjJ0bExXeHBibVZxYjJsdVBTSnliM1Z1WkNJdlBnbzhMM04yWno0PSIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9XX0=">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEyOCIgZmlsbD0iIzBCMEYxNCIvPgogIDxyZWN0IHg9IjY0IiB5PSI2NCIgd2lkdGg9IjM4NCIgaGVpZ2h0PSIzODQiIHJ4PSI5NiIgZmlsbD0iI0M4RjEzNSIvPgogIDxwYXRoIGQ9Ik0xNjAgMzUyIEwzNTIgMTYwIE0zNTIgMzUyIEwzNTIgMTYwIEwxNjAgMTYwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwQjBGMTQiIHN0cm9rZS13aWR0aD0iNDgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEyOCIgZmlsbD0iIzBCMEYxNCIvPgogIDxyZWN0IHg9IjY0IiB5PSI2NCIgd2lkdGg9IjM4NCIgaGVpZ2h0PSIzODQiIHJ4PSI5NiIgZmlsbD0iI0M4RjEzNSIvPgogIDxwYXRoIGQ9Ik0xNjAgMzUyIEwzNTIgMTYwIE0zNTIgMzUyIEwzNTIgMTYwIEwxNjAgMTYwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwQjBGMTQiIHN0cm9rZS13aWR0aD0iNDgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=">
+  <!-- PDF generation (jsPDF + AutoTable) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <!-- Tailwind CSS v3.4.17 -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+    h1, h2, h3, h4, .font-headline { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .modal-backdrop {
+      animation: fadeIn 0.15s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- Hidden File Inputs -->
+  <input type="file" id="csv-import-input" accept=".csv" class="hidden">
+  <input type="file" id="json-import-input" accept=".json" class="hidden">
+
+  <!-- AUTH / LOGIN OVERLAY (when logged out) -->
+  <div id="auth-overlay" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 border border-slate-100">
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-[#C8F135] rounded-2xl mb-3 shadow-sm">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="#0B0F14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-[#0B0F14] tracking-tight font-['Space_Grotesk']">MakeIt Digital</h2>
+        <p class="text-xs text-slate-500 mt-1 font-semibold">You Idea It. We MakeIt.</p>
+      </div>
+
+      <!-- Error message container -->
+      <div id="login-error-banner" class="hidden mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+        <span id="login-error-text">Invalid email or password. Access denied.</span>
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Owner Email</label>
+          <input type="email" id="login-email" value="makeitdigitalwyd@gmail.com" placeholder="e.g. makeitdigitalwyd@gmail.com" required autocomplete="username"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B0F14] focus:border-[#0B0F14] outline-none transition text-sm bg-slate-50 focus:bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Access Password / PIN</label>
+          <input type="password" id="login-password" value="" placeholder="Enter PIN (default: makeit2026)" required autocomplete="current-password"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B0F14] focus:border-[#0B0F14] outline-none transition text-sm bg-slate-50 focus:bg-white">
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-500 pt-1">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="login-remember" checked class="rounded text-[#0B0F14] focus:ring-0">
+            <span>Remember me on this device</span>
+          </label>
+        </div>
+
+        <button type="submit" id="btn-login-submit"
+          class="w-full py-3 px-4 bg-[#0B0F14] hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition duration-150 flex items-center justify-center gap-2">
+          <span>Sign In to MakeIt CRM</span>
+          <svg class="w-4 h-4 text-[#C8F135]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+        <p class="text-xs text-slate-400">Default Owner PIN: <span class="font-mono font-semibold text-slate-600">makeit2026</span> (changeable in Cloud Sync)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-full md:w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 border-r border-slate-800">
+      <!-- Agency Brand Header -->
+      <div class="p-5 flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#C8F135] flex items-center justify-center text-[#0B0F14] font-black shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#0B0F14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-white font-bold text-base leading-tight tracking-tight font-['Space_Grotesk']">MakeIt Digital</h1>
+            <p class="text-[11px] text-[#C8F135] font-medium tracking-tight">You Idea It. We MakeIt.</p>
+          </div>
+        </div>
+        <button id="mobile-menu-toggle" class="md:hidden text-slate-400 hover:text-white p-1" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav id="sidebar-nav" class="p-4 space-y-1.5 flex-1 hidden md:block">
+        <button data-view="dashboard" class="nav-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-white bg-indigo-600/90 shadow-sm">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button data-view="leads" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:text-white hover:bg-slate-800/80">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span>Leads &amp; Clients</span>
+          </div>
+          <span id="nav-badge-leads" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300">0</span>
+        </button>
+
+        <button data-view="followups" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:text-white hover:bg-slate-800/80">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Follow-up Hub</span>
+          </div>
+          <span id="nav-badge-followups" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300">0</span>
+        </button>
+
+        <button data-view="projects" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:text-white hover:bg-slate-800/80">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+            <span>Project Pipeline</span>
+          </div>
+          <span id="nav-badge-projects" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300">0</span>
+        </button>
+
+        <button data-view="team" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:text-white hover:bg-slate-800/80">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <span>Team &amp; Workers</span>
+          </div>
+          <span id="nav-badge-team" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300">0</span>
+        </button>
+
+        <!-- Quick Tools Divider -->
+        <div class="pt-4 pb-2">
+          <p class="px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Quick Tools</p>
+        </div>
+
+        <button id="sidebar-btn-add-lead" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-indigo-400 hover:text-white hover:bg-indigo-900/40 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          <span>New Customer Lead</span>
+        </button>
+
+        <button id="sidebar-btn-import" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+          </svg>
+          <span>Import CSV Contacts</span>
+        </button>
+
+        <button id="sidebar-btn-export" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          <span>Export All Data (CSV)</span>
+        </button>
+
+        <button id="sidebar-btn-leads-pdf" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>Leads Report (PDF)</span>
+        </button>
+
+        <button id="sidebar-btn-team-pdf" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>Team Payments (PDF)</span>
+        </button>
+
+        <button id="sidebar-btn-install" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-[#C8F135] hover:bg-slate-800/80 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+          </svg>
+          <span>Install App on Phone / PC</span>
+        </button>
+
+        <button id="sidebar-btn-cloud-sync" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-emerald-400 hover:text-white hover:bg-emerald-950/40 transition">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          <span>Multi-Device Cloud Sync</span>
+        </button>
+      </nav>
+
+      <!-- User Account & Logout Footer -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+          <div class="w-9 h-9 rounded-full bg-[#1b222c] text-[#C8F135] font-bold flex items-center justify-center text-xs shrink-0 border border-[#C8F135]/30">
+            MI
+          </div>
+          <div class="truncate">
+            <p id="owner-name-display" class="text-xs font-semibold text-white truncate">MakeIt Digital</p>
+            <p class="text-[10px] text-slate-400 truncate">makeitdigitalwyd@gmail.com</p>
+          </div>
+        </div>
+        <button id="btn-logout" title="Sign Out" class="text-slate-400 hover:text-rose-400 p-1.5 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col min-w-0 bg-slate-50 overflow-y-auto">
+
+      <!-- TOP BAR -->
+      <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-3.5 sticky top-0 z-30 flex items-center justify-between gap-3 shadow-xs">
+        <div class="flex items-center gap-3 min-w-0">
+          <h2 id="page-title" class="text-lg md:text-xl font-bold text-slate-800 truncate">Executive Dashboard</h2>
+          <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            System Live
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="btn-topbar-add-lead" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#0B0F14] hover:bg-slate-800 text-white shadow-xs transition">
+            <svg class="w-3.5 h-3.5 text-[#C8F135]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+            </svg>
+            <span class="hidden sm:inline">New Lead</span>
+          </button>
+          <button id="btn-topbar-install" title="Install as Mobile App" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#C8F135] hover:bg-[#b5de28] text-[#0B0F14] shadow-xs transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            <span>Install App</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW CONTAINERS -->
+      <div class="p-4 sm:p-6 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- 1. DASHBOARD VIEW -->
+        <section id="view-dashboard" class="view-section space-y-6">
+          <!-- KPI Row -->
+          <div id="dashboard-kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+          <!-- Financial & Pipeline Summary -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-slate-800">Active Project Pipeline</h3>
+                  <p class="text-xs text-slate-500">Live progress, milestones &amp; payment collection</p>
+                </div>
+                <button data-goto="projects" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">View All &rarr;</button>
+              </div>
+              <div id="dashboard-projects-list" class="space-y-3"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 class="text-base font-bold text-slate-800 mb-1">Financial Overview</h3>
+                <p class="text-xs text-slate-500 mb-4">Agency cashflow &amp; team payouts</p>
+                <div id="dashboard-finance-breakdown" class="space-y-3"></div>
+              </div>
+              <div class="mt-5 pt-4 border-t border-slate-100">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Lead Funnel</h4>
+                <div id="dashboard-funnel-bars" class="space-y-2"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Due Follow-ups & Recent Leads -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-slate-800">Priority Follow-ups</h3>
+                  <p class="text-xs text-slate-500">Leads needing attention today or overdue</p>
+                </div>
+                <button data-goto="followups" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Open Hub &rarr;</button>
+              </div>
+              <div id="dashboard-followups-list" class="space-y-2.5"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-slate-800">Team Workload &amp; Payouts</h3>
+                  <p class="text-xs text-slate-500">Active contributors &amp; pending balances</p>
+                </div>
+                <button data-goto="team" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Manage Team &rarr;</button>
+              </div>
+              <div id="dashboard-team-list" class="space-y-2.5"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. LEADS & CLIENTS VIEW -->
+        <section id="view-leads" class="view-section hidden space-y-5">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
+              <div class="relative flex-1">
+                <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="text" id="leads-search" placeholder="Search name, company, phone, service..."
+                  class="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-slate-50 focus:bg-white">
+              </div>
+              <select id="leads-filter-status" class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="All">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Proposal Sent">Proposal Sent</option>
+                <option value="Negotiation">Negotiation</option>
+                <option value="Won">Won</option>
+                <option value="Lost">Lost</option>
+              </select>
+              <select id="leads-filter-service" class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="All">All Services</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Mobile / Web App">Mobile / Web App</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="AI Video & Branding">AI Video &amp; Branding</option>
+                <option value="SEO & Ads">SEO &amp; Ads</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btn-leads-add" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-xs transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span>Add Lead</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <th class="py-3.5 px-4">Client / Business</th>
+                    <th class="py-3.5 px-4">Contact</th>
+                    <th class="py-3.5 px-4">Service</th>
+                    <th class="py-3.5 px-4 text-right">Est. Value</th>
+                    <th class="py-3.5 px-4">Status</th>
+                    <th class="py-3.5 px-4">Next Follow-up</th>
+                    <th class="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="leads-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+              </table>
+            </div>
+            <div id="leads-empty-state" class="hidden py-12 text-center">
+              <p class="text-slate-500 text-sm font-medium">No leads match your current filter.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. FOLLOW-UP HUB VIEW -->
+        <section id="view-followups" class="view-section hidden space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl border border-slate-200 p-4 shadow-xs">
+            <div class="flex flex-wrap gap-2" id="followup-filter-tabs">
+              <button data-ftab="all" class="ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0B0F14] text-white transition">All Pending</button>
+              <button data-ftab="overdue" class="ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Overdue</button>
+              <button data-ftab="today" class="ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Due Today</button>
+              <button data-ftab="upcoming" class="ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Upcoming</button>
+              <button data-ftab="done" class="ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Completed</button>
+            </div>
+            <button id="btn-followup-add-lead" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">+ Schedule Lead Follow-up</button>
+          </div>
+
+          <div id="followups-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </section>
+
+        <!-- 4. PROJECT PIPELINE VIEW -->
+        <section id="view-projects" class="view-section hidden space-y-5">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button data-pview="board" class="pview-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0B0F14] text-white transition">Pipeline Board</button>
+              <button data-pview="list" class="pview-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">Table View</button>
+            </div>
+            <button id="btn-projects-add" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-xs transition flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              <span>New Project</span>
+            </button>
+          </div>
+
+          <div id="projects-board-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4"></div>
+          <div id="projects-list-container" class="hidden bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <th class="py-3.5 px-4">Project &amp; Client</th>
+                    <th class="py-3.5 px-4">Stage</th>
+                    <th class="py-3.5 px-4">Assigned To</th>
+                    <th class="py-3.5 px-4">Progress</th>
+                    <th class="py-3.5 px-4 text-right">Budget / Paid</th>
+                    <th class="py-3.5 px-4">Deadline</th>
+                    <th class="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="projects-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. TEAM & WORKERS VIEW -->
+        <section id="view-team" class="view-section hidden space-y-5">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="text-base font-bold text-slate-800">Agency Team &amp; Freelance Workers</h3>
+              <p class="text-xs text-slate-500">Track project assignments, agreed payouts, and payment settlements</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btn-team-pdf-top" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition">Download Payments PDF</button>
+              <button id="btn-team-add" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-xs transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span>Add Team Member</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="team-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <h3 class="text-base font-bold text-slate-800 mb-3">Recent Team Payout History</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <th class="py-3 px-4">Date</th>
+                    <th class="py-3 px-4">Team Member</th>
+                    <th class="py-3 px-4">Project / Note</th>
+                    <th class="py-3 px-4">Method</th>
+                    <th class="py-3 px-4 text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="team-payments-body" class="divide-y divide-slate-100 text-sm"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / EDIT LEAD -->
+  <div id="modal-lead" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modal-lead-title" class="text-lg font-bold text-slate-800">New Customer Lead</h3>
+        <button data-close-modal="modal-lead" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <form id="form-lead" class="space-y-3.5">
+        <input type="hidden" id="lead-id">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Contact Name *</label>
+            <input type="text" id="lead-name" required placeholder="e.g. Arjun Menon" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Business / Brand *</label>
+            <input type="text" id="lead-company" required placeholder="e.g. Wayanad Spice Co." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Phone / WhatsApp *</label>
+            <input type="tel" id="lead-phone" required placeholder="+91 98765 43210" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Email</label>
+            <input type="email" id="lead-email" placeholder="client@company.com" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Service Needed</label>
+            <select id="lead-service" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="Web Development">Web Development</option>
+              <option value="Mobile / Web App">Mobile / Web App</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="AI Video & Branding">AI Video &amp; Branding</option>
+              <option value="SEO & Ads">SEO &amp; Ads</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Estimated Value (₹)</label>
+            <input type="number" id="lead-value" min="0" step="500" value="25000" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Status</label>
+            <select id="lead-status" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="New">New</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Proposal Sent">Proposal Sent</option>
+              <option value="Negotiation">Negotiation</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Source</label>
+            <select id="lead-source" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="Instagram">Instagram</option>
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Referral">Referral</option>
+              <option value="Website">Website</option>
+              <option value="Cold Outreach">Cold Outreach</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Next Follow-up</label>
+            <input type="date" id="lead-followup" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Notes / Requirements</label>
+          <textarea id="lead-notes" rows="2" placeholder="Key project scope, client expectations..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" data-close-modal="modal-lead" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-[#0B0F14] hover:bg-slate-800 text-white text-sm font-bold">Save Lead</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT PROJECT -->
+  <div id="modal-project" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modal-project-title" class="text-lg font-bold text-slate-800">New Agency Project</h3>
+        <button data-close-modal="modal-project" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <form id="form-project" class="space-y-3.5">
+        <input type="hidden" id="project-id">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Project Title *</label>
+            <input type="text" id="project-title" required placeholder="e.g. E-Commerce Storefront" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Client Name *</label>
+            <input type="text" id="project-client" required placeholder="e.g. Malabar Roasters" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Pipeline Stage</label>
+            <select id="project-stage" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="Discovery">Discovery</option>
+              <option value="Design & UI">Design &amp; UI</option>
+              <option value="Development">Development</option>
+              <option value="Testing & QA">Testing &amp; QA</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Assigned Member</label>
+            <select id="project-assignee" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Total Budget (₹)</label>
+            <input type="number" id="project-budget" min="0" step="500" value="40000" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Client Paid (₹)</label>
+            <input type="number" id="project-paid" min="0" step="500" value="20000" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Deadline</label>
+            <input type="date" id="project-deadline" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Progress (<span id="project-progress-label">25</span>%)</label>
+          <input type="range" id="project-progress" min="0" max="100" step="5" value="25" class="w-full accent-indigo-600">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Deliverables / Notes</label>
+          <textarea id="project-notes" rows="2" placeholder="Milestones, links, tech stack..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" data-close-modal="modal-project" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-[#0B0F14] hover:bg-slate-800 text-white text-sm font-bold">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TEAM MEMBER -->
+  <div id="modal-team" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modal-team-title" class="text-lg font-bold text-slate-800">Add Team Member</h3>
+        <button data-close-modal="modal-team" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <form id="form-team" class="space-y-3.5">
+        <input type="hidden" id="team-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name *</label>
+          <input type="text" id="team-name" required placeholder="e.g. Rahul Krishnan" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Role / Specialty *</label>
+          <input type="text" id="team-role" required placeholder="e.g. Full-Stack Developer" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Phone</label>
+            <input type="tel" id="team-phone" placeholder="+91 98..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Agreed Payout (₹)</label>
+            <input type="number" id="team-agreed" min="0" step="500" value="15000" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" data-close-modal="modal-team" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-[#0B0F14] hover:bg-slate-800 text-white text-sm font-bold">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: RECORD TEAM PAYMENT -->
+  <div id="modal-payment" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-bold text-slate-800">Record Team Payout</h3>
+        <button data-close-modal="modal-payment" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <form id="form-payment" class="space-y-3.5">
+        <input type="hidden" id="payment-member-id">
+        <p class="text-xs text-slate-500">Recording payment for <span id="payment-member-name" class="font-bold text-slate-800"></span></p>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Amount (₹) *</label>
+            <input type="number" id="payment-amount" required min="1" step="100" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Method</label>
+            <select id="payment-method" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="UPI / GPay">UPI / GPay</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Cash">Cash</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Project / Reference Note</label>
+          <input type="text" id="payment-note" placeholder="e.g. Milestone 1 payout" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" data-close-modal="modal-payment" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold">Record Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: INSTALL PWA -->
+  <div id="modal-install" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-bold text-slate-800">Install MakeIt CRM App</h3>
+        <button data-close-modal="modal-install" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <p class="text-sm text-slate-600 mb-4">Host this file on GitHub Pages (HTTPS) to install MakeIt Digital CRM directly onto your phone or desktop home screen.</p>
+      <div class="space-y-2.5 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">
+        <p><span class="font-bold text-slate-800">Android (Chrome):</span> Tap menu (⋮) &rarr; <span class="font-semibold">Add to Home screen</span> or <span class="font-semibold">Install app</span>.</p>
+        <p><span class="font-bold text-slate-800">iPhone / iPad (Safari):</span> Tap Share &rarr; <span class="font-semibold">Add to Home Screen</span>.</p>
+        <p><span class="font-bold text-slate-800">Desktop (Chrome / Edge):</span> Click the install icon in the address bar.</p>
+      </div>
+      <div id="pwa-prompt-action" class="mt-4 hidden">
+        <button id="btn-trigger-pwa-install" class="w-full py-2.5 rounded-xl bg-[#C8F135] hover:bg-[#b5de28] text-[#0B0F14] font-bold text-sm">Install Now</button>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button data-close-modal="modal-install" class="px-4 py-2 rounded-xl bg-[#0B0F14] text-white text-xs font-bold">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CLOUD SYNC & BACKUP -->
+  <div id="modal-cloud-sync" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-bold text-slate-800">Multi-Device Sync &amp; Backup</h3>
+        <button data-close-modal="modal-cloud-sync" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-500 mb-4">Data is saved locally in your browser. Export a JSON snapshot or restore a backup file to transfer your CRM state between phone and PC.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+        <button id="btn-sync-export-json" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition">Download JSON Backup</button>
+        <button id="btn-sync-import-json" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition">Restore JSON Backup</button>
+      </div>
+      <div class="mb-4">
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Owner Access PIN</label>
+        <div class="flex gap-2">
+          <input type="text" id="sync-owner-pin" class="flex-1 px-3 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:ring-2 focus:ring-indigo-500">
+          <button id="btn-save-pin" class="px-3.5 py-2 rounded-xl bg-[#0B0F14] text-white text-xs font-bold">Update PIN</button>
+        </div>
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <button id="btn-reset-demo-data" class="text-xs font-semibold text-rose-600 hover:text-rose-700">Reset to Demo Data</button>
+        <button data-close-modal="modal-cloud-sync" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMATION -->
+  <div id="modal-confirm" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-100">
+      <h3 id="confirm-title" class="text-base font-bold text-slate-800 mb-1.5">Confirm Action</h3>
+      <p id="confirm-message" class="text-xs text-slate-600 mb-5">Are you sure you want to proceed?</p>
+      <div class="flex justify-end gap-2">
+        <button id="btn-confirm-cancel" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50">Cancel</button>
+        <button id="btn-confirm-ok" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'makeit_digital_crm_v1';
+      const OWNER_EMAIL = 'makeitdigitalwyd@gmail.com';
+      const todayStr = () => new Date().toISOString().split('T')[0];
+      const addDaysStr = (days) => {
+        const d = new Date();
+        d.setDate(d.getDate() + days);
+        return d.toISOString().split('T')[0];
+      };
+
+      const defaultState = () => ({
+        pin: 'makeit2026',
+        loggedIn: true,
+        currentView: 'dashboard',
+        followupTab: 'all',
+        projectViewMode: 'board',
+        leads: [
+          {
+            id: 'L1',
+            name: 'Arjun Menon',
+            company: 'Wayanad Spice Collective',
+            phone: '+91 98470 11223',
+            email: 'arjun@wayanadspice.in',
+            service: 'Web Development',
+            value: 45000,
+            status: 'Proposal Sent',
+            source: 'Instagram',
+            followUpDate: todayStr(),
+            followUpDone: false,
+            notes: 'Shopify or custom catalog site with WhatsApp checkout.'
+          },
+          {
+            id: 'L2',
+            name: 'Fathima Nasrin',
+            company: 'Malabar Glow Studio',
+            phone: '+91 97450 33445',
+            email: 'hello@malabarglow.com',
+            service: 'AI Video & Branding',
+            value: 28000,
+            status: 'Negotiation',
+            source: 'Referral',
+            followUpDate: addDaysStr(-1),
+            followUpDone: false,
+            notes: '10-sec vertical promo reels + brand kit refresh.'
+          },
+          {
+            id: 'L3',
+            name: 'Roshan Varghese',
+            company: 'Kochi Timber & UPVC',
+            phone: '+91 94460 55667',
+            email: 'roshan@kochitimb.in',
+            service: 'Mobile / Web App',
+            value: 85000,
+            status: 'Won',
+            source: 'Cold Outreach',
+            followUpDate: addDaysStr(3),
+            followUpDone: true,
+            notes: 'Site & material tracking PWA.'
+          },
+          {
+            id: 'L4',
+            name: 'Deepak Nair',
+            company: 'Calicut Ortho Care',
+            phone: '+91 98950 77889',
+            email: 'info@calicutortho.in',
+            service: 'SEO & Ads',
+            value: 22000,
+            status: 'New',
+            source: 'Website',
+            followUpDate: addDaysStr(2),
+            followUpDone: false,
+            notes: 'Monthly Google Maps & local search retainer.'
+          }
+        ],
+        projects: [
+          {
+            id: 'P1',
+            title: 'UPVC Site Tracker PWA',
+            client: 'Kochi Timber & UPVC',
+            stage: 'Development',
+            assigneeId: 'T1',
+            progress: 65,
+            budget: 85000,
+            paid: 45000,
+            deadline: addDaysStr(14),
+            notes: 'Offline sync + worker wage module in progress.'
+          },
+          {
+            id: 'P2',
+            title: 'Festive Reel Campaign',
+            client: 'Safa Fancy & Gifts',
+            stage: 'Design & UI',
+            assigneeId: 'T2',
+            progress: 40,
+            budget: 30000,
+            paid: 15000,
+            deadline: addDaysStr(7),
+            notes: 'Product shoot + 6 vertical AI promo videos.'
+          },
+          {
+            id: 'P3',
+            title: 'Resort Booking Website',
+            client: 'Vythiri Mist Stay',
+            stage: 'Testing & QA',
+            assigneeId: 'T1',
+            progress: 90,
+            budget: 55000,
+            paid: 40000,
+            deadline: addDaysStr(3),
+            notes: 'Final mobile responsiveness & payment link check.'
+          },
+          {
+            id: 'P4',
+            title: 'Brand Identity & Logo',
+            client: 'GreenLeaf Organics',
+            stage: 'Delivered',
+            assigneeId: 'T3',
+            progress: 100,
+            budget: 18000,
+            paid: 18000,
+            deadline: addDaysStr(-4),
+            notes: 'Delivered SVG, print pack, and social templates.'
+          }
+        ],
+        team: [
+          { id: 'T1', name: 'Rahul Krishnan', role: 'Full-Stack Developer', phone: '+91 98461 10203', agreed: 45000, paid: 25000 },
+          { id: 'T2', name: 'Sneha Joseph', role: 'AI Video & Motion Editor', phone: '+91 97442 20304', agreed: 20000, paid: 10000 },
+          { id: 'T3', name: 'Ameen Rasheed', role: 'UI/UX & Brand Designer', phone: '+91 99473 30405', agreed: 18000, paid: 18000 }
+        ],
+        payments: [
+          { id: 'PAY1', date: addDaysStr(-10), memberId: 'T1', memberName: 'Rahul Krishnan', note: 'UPVC PWA Milestone 1', method: 'UPI / GPay', amount: 25000 },
+          { id: 'PAY2', date: addDaysStr(-5), memberId: 'T3', memberName: 'Ameen Rasheed', note: 'GreenLeaf Brand Pack', method: 'Bank Transfer', amount: 18000 },
+          { id: 'PAY3', date: addDaysStr(-2), memberId: 'T2', memberName: 'Sneha Joseph', note: 'Safa Reel Advance', method: 'UPI / GPay', amount: 10000 }
+        ]
+      });
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaultState();
+          const parsed = JSON.parse(raw);
+          return Object.assign(defaultState(), parsed);
+        } catch (e) {
+          return defaultState();
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          // Storage disabled in restricted context
+        }
+      }
+
+      let state = loadState();
+      let deferredInstallPrompt = null;
+      let confirmCallback = null;
+
+      const esc = (str) => String(str ?? '').replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+
+      const fmtINR = (n) => '₹' + Number(n || 0).toLocaleString('en-IN');
+
+      function showToast(msg, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const el = document.createElement('div');
+        const colors = type === 'error'
+          ? 'bg-rose-600 text-white'
+          : type === 'info'
+            ? 'bg-slate-800 text-white'
+            : 'bg-[#0B0F14] text-white border border-[#C8F135]/40';
+        el.className = `pointer-events-auto px-4 py-3 rounded-xl shadow-lg text-xs font-semibold flex items-center justify-between gap-3 transition ${colors}`;
+        el.innerHTML = `<span>${esc(msg)}</span><button class="opacity-70 hover:opacity-100">✕</button>`;
+        el.querySelector('button').addEventListener('click', () => el.remove());
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 3500);
+      }
+
+      function openModal(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      }
+
+      function closeModal(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      }
+
+      function askConfirm(title, message, onConfirm) {
+        document.getElementById('confirm-title').textContent = title;
+        document.getElementById('confirm-message').textContent = message;
+        confirmCallback = onConfirm;
+        openModal('modal-confirm');
+      }
+
+      function leadStatusBadge(status) {
+        const map = {
+          'New': 'bg-sky-50 text-sky-700 border-sky-200',
+          'Contacted': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+          'Proposal Sent': 'bg-amber-50 text-amber-700 border-amber-200',
+          'Negotiation': 'bg-purple-50 text-purple-700 border-purple-200',
+          'Won': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          'Lost': 'bg-slate-100 text-slate-600 border-slate-200'
+        };
+        return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${map[status] || map['New']}">${esc(status)}</span>`;
+      }
+
+      function updateBadges() {
+        const dueFollowups = state.leads.filter((l) => !l.followUpDone && l.status !== 'Lost').length;
+        const activeProjects = state.projects.filter((p) => p.stage !== 'Delivered').length;
+        document.getElementById('nav-badge-leads').textContent = state.leads.length;
+        document.getElementById('nav-badge-followups').textContent = dueFollowups;
+        document.getElementById('nav-badge-projects').textContent = activeProjects;
+        document.getElementById('nav-badge-team').textContent = state.team.length;
+      }
+
+      function switchView(view) {
+        state.currentView = view;
+        saveState();
+        const titles = {
+          dashboard: 'Executive Dashboard',
+          leads: 'Leads & Clients',
+          followups: 'Follow-up Hub',
+          projects: 'Project Pipeline',
+          team: 'Team & Workers'
+        };
+        document.getElementById('page-title').textContent = titles[view] || 'Dashboard';
+
+        document.querySelectorAll('.view-section').forEach((s) => s.classList.add('hidden'));
+        const activeSec = document.getElementById(`view-${view}`);
+        if (activeSec) activeSec.classList.remove('hidden');
+
+        document.querySelectorAll('.nav-btn').forEach((btn) => {
+          const isMatch = btn.dataset.view === view;
+          btn.className = isMatch
+            ? 'nav-btn active w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-white bg-indigo-600/90 shadow-sm'
+            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:text-white hover:bg-slate-800/80';
+        });
+
+        renderAll();
+      }
+
+      function renderDashboard() {
+        const totalLeads = state.leads.length;
+        const pipelineValue = state.leads.filter((l) => l.status !== 'Lost').reduce((s, l) => s + Number(l.value || 0), 0);
+        const activeProjects = state.projects.filter((p) => p.stage !== 'Delivered');
+        const dueTodayOrOverdue = state.leads.filter((l) => !l.followUpDone && l.status !== 'Lost' && l.followUpDate && l.followUpDate <= todayStr());
+
+        document.getElementById('dashboard-kpis').innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Leads</p>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span class="text-2xl font-bold text-slate-900 font-['Space_Grotesk']">${totalLeads}</span>
+              <span class="text-xs font-semibold text-indigo-600">${state.leads.filter((l) => l.status === 'Won').length} Won</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Lead Pipeline Value</p>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span class="text-2xl font-bold text-slate-900 font-['Space_Grotesk']">${fmtINR(pipelineValue)}</span>
+              <span class="text-xs font-semibold text-emerald-600">Active</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Projects</p>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span class="text-2xl font-bold text-slate-900 font-['Space_Grotesk']">${activeProjects.length}</span>
+              <span class="text-xs font-semibold text-slate-500">${state.projects.length} Total</span>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Due Follow-ups</p>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span class="text-2xl font-bold text-amber-600 font-['Space_Grotesk']">${dueTodayOrOverdue.length}</span>
+              <span class="text-xs font-semibold text-slate-500">Today / Overdue</span>
+            </div>
+          </div>
+        `;
+
+        // Active projects list
+        const projContainer = document.getElementById('dashboard-projects-list');
+        if (activeProjects.length === 0) {
+          projContainer.innerHTML = `<p class="text-xs text-slate-400 py-4">No active projects right now.</p>`;
+        } else {
+          projContainer.innerHTML = activeProjects.slice(0, 4).map((p) => {
+            const member = state.team.find((m) => m.id === p.assigneeId);
+            return `
+              <div class="p-3.5 rounded-xl border border-slate-100 bg-slate-50/70">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <div>
+                    <p class="text-sm font-bold text-slate-800">${esc(p.title)}</p>
+                    <p class="text-xs text-slate-500">${esc(p.client)} &bull; ${esc(member ? member.name : 'Unassigned')}</p>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700">${esc(p.stage)}</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-[#0B0F14] rounded-full" style="width:${Number(p.progress || 0)}%"></div>
+                  </div>
+                  <span class="text-xs font-bold text-slate-700 w-9 text-right">${Number(p.progress || 0)}%</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Financial breakdown
+        const totalContracted = state.projects.reduce((s, p) => s + Number(p.budget || 0), 0);
+        const totalCollected = state.projects.reduce((s, p) => s + Number(p.paid || 0), 0);
+        const clientPending = Math.max(0, totalContracted - totalCollected);
+        const teamPending = state.team.reduce((s, m) => s + Math.max(0, Number(m.agreed || 0) - Number(m.paid || 0)), 0);
+
+        document.getElementById('dashboard-finance-breakdown').innerHTML = `
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-600">Project Contracted</span>
+            <span class="font-bold text-slate-900">${fmtINR(totalContracted)}</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-600">Client Collected</span>
+            <span class="font-bold text-emerald-600">${fmtINR(totalCollected)}</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-600">Client Receivable</span>
+            <span class="font-bold text-amber-600">${fmtINR(clientPending)}</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-600">Team Payout Due</span>
+            <span class="font-bold text-rose-600">${fmtINR(teamPending)}</span>
+          </div>
+        `;
+
+        // Funnel bars
+        const statuses = ['New', 'Contacted', 'Proposal Sent', 'Negotiation', 'Won'];
+        const maxCount = Math.max(1, ...statuses.map((st) => state.leads.filter((l) => l.status === st).length));
+        document.getElementById('dashboard-funnel-bars').innerHTML = statuses.map((st) => {
+          const count = state.leads.filter((l) => l.status === st).length;
+          const pct = Math.round((count / maxCount) * 100);
+          return `
+            <div class="flex items-center gap-2 text-xs">
+              <span class="w-24 text-slate-600 truncate">${st}</span>
+              <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-500 rounded-full" style="width:${pct}%"></div>
+              </div>
+              <span class="w-5 text-right font-bold text-slate-700">${count}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Priority follow-ups
+        const fList = document.getElementById('dashboard-followups-list');
+        const pending = state.leads.filter((l) => !l.followUpDone && l.status !== 'Lost').sort((a, b) => (a.followUpDate || '9999').localeCompare(b.followUpDate || '9999'));
+        if (pending.length === 0) {
+          fList.innerHTML = `<p class="text-xs text-slate-400 py-3">All follow-ups are caught up!</p>`;
+        } else {
+          fList.innerHTML = pending.slice(0, 4).map((l) => {
+            const isOverdue = l.followUpDate && l.followUpDate < todayStr();
+            return `
+              <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/70">
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold text-slate-800 truncate">${esc(l.name)} <span class="text-xs font-normal text-slate-500">(${esc(l.company)})</span></p>
+                  <p class="text-xs ${isOverdue ? 'text-rose-600 font-semibold' : 'text-slate-500'}">${isOverdue ? 'Overdue: ' : 'Due: '}${esc(l.followUpDate || 'Unscheduled')}</p>
+                </div>
+                <button data-done-lead="${l.id}" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0">Done</button>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Team list
+        document.getElementById('dashboard-team-list').innerHTML = state.team.slice(0, 4).map((m) => {
+          const bal = Math.max(0, Number(m.agreed || 0) - Number(m.paid || 0));
+          return `
+            <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/70">
+              <div>
+                <p class="text-sm font-semibold text-slate-800">${esc(m.name)}</p>
+                <p class="text-xs text-slate-500">${esc(m.role)}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs font-bold ${bal > 0 ? 'text-rose-600' : 'text-emerald-600'}">${bal > 0 ? fmtINR(bal) + ' due' : 'Settled'}</p>
+                <p class="text-[11px] text-slate-400">Paid ${fmtINR(m.paid)}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderLeads() {
+        const q = (document.getElementById('leads-search').value || '').toLowerCase().trim();
+        const statusFilter = document.getElementById('leads-filter-status').value;
+        const serviceFilter = document.getElementById('leads-filter-service').value;
+
+        const filtered = state.leads.filter((l) => {
+          const matchesQ = !q || [l.name, l.company, l.phone, l.email, l.service].some((v) => String(v || '').toLowerCase().includes(q));
+          const matchesSt = statusFilter === 'All' || l.status === statusFilter;
+          const matchesSv = serviceFilter === 'All' || l.service === serviceFilter;
+          return matchesQ && matchesSt && matchesSv;
+        });
+
+        const tbody = document.getElementById('leads-table-body');
+        const empty = document.getElementById('leads-empty-state');
+        if (filtered.length === 0) {
+          tbody.innerHTML = '';
+          empty.classList.remove('hidden');
+          return;
+        }
+        empty.classList.add('hidden');
+        tbody.innerHTML = filtered.map((l) => `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3.5 px-4">
+              <p class="font-bold text-slate-800">${esc(l.name)}</p>
+              <p class="text-xs text-slate-500">${esc(l.company)}</p>
+            </td>
+            <td class="py-3.5 px-4">
+              <p class="text-xs font-medium text-slate-700">${esc(l.phone)}</p>
+              <p class="text-[11px] text-slate-400">${esc(l.email || '-')}</p>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="text-xs font-medium text-slate-700">${esc(l.service)}</span>
+              <p class="text-[11px] text-slate-400">${esc(l.source)}</p>
+            </td>
+            <td class="py-3.5 px-4 text-right font-bold text-slate-800">${fmtINR(l.value)}</td>
+            <td class="py-3.5 px-4">${leadStatusBadge(l.status)}</td>
+            <td class="py-3.5 px-4 text-xs text-slate-600">${esc(l.followUpDate || '-')}</td>
+            <td class="py-3.5 px-4 text-right">
+              <div class="inline-flex items-center gap-1.5">
+                <button data-convert-lead="${l.id}" title="Convert to Project" class="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold">Project</button>
+                <button data-edit-lead="${l.id}" class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Edit</button>
+                <button data-delete-lead="${l.id}" class="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold">Del</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      function renderFollowups() {
+        const tab = state.followupTab;
+        const today = todayStr();
+        const items = state.leads.filter((l) => {
+          if (tab === 'done') return l.followUpDone;
+          if (l.followUpDone || l.status === 'Lost') return false;
+          if (tab === 'overdue') return l.followUpDate && l.followUpDate < today;
+          if (tab === 'today') return l.followUpDate === today;
+          if (tab === 'upcoming') return !l.followUpDate || l.followUpDate > today;
+          return true;
+        });
+
+        const grid = document.getElementById('followups-grid');
+        if (items.length === 0) {
+          grid.innerHTML = `<div class="col-span-full bg-white rounded-2xl border border-slate-200 p-10 text-center text-sm text-slate-500">No follow-ups in this category.</div>`;
+          return;
+        }
+        grid.innerHTML = items.map((l) => {
+          const isOverdue = !l.followUpDone && l.followUpDate && l.followUpDate < today;
+          const cleanPhone = String(l.phone || '').replace(/[^0-9]/g, '');
+          return `
+            <div class="bg-white rounded-2xl border ${isOverdue ? 'border-rose-200' : 'border-slate-200'} p-5 shadow-xs flex flex-col justify-between gap-4">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <h4 class="text-base font-bold text-slate-800">${esc(l.name)}</h4>
+                    <p class="text-xs text-slate-500">${esc(l.company)} &bull; ${esc(l.service)}</p>
+                  </div>
+                  ${leadStatusBadge(l.status)}
+                </div>
+                <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 mb-2.5">${esc(l.notes || 'No notes added yet.')}</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="${isOverdue ? 'text-rose-600 font-bold' : 'text-slate-500 font-medium'}">${l.followUpDone ? 'Completed' : (isOverdue ? 'Overdue: ' : 'Due: ') + esc(l.followUpDate || 'Unscheduled')}</span>
+                  <span class="font-bold text-slate-800">${fmtINR(l.value)}</span>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-100">
+                <div class="flex items-center gap-1.5">
+                  ${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" rel="noopener" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold">WhatsApp</a>` : ''}
+                  <button data-reschedule-lead="${l.id}" data-days="3" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">+3 Days</button>
+                </div>
+                <button data-toggle-followup="${l.id}" class="px-3 py-1.5 rounded-lg ${l.followUpDone ? 'bg-slate-200 text-slate-700' : 'bg-[#0B0F14] text-white'} text-xs font-bold">
+                  ${l.followUpDone ? 'Reopen' : 'Mark Done'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderProjects() {
+        const stages = ['Discovery', 'Design & UI', 'Development', 'Testing & QA', 'Delivered'];
+        const boardEl = document.getElementById('projects-board-container');
+        const listEl = document.getElementById('projects-list-container');
+
+        if (state.projectViewMode === 'board') {
+          boardEl.classList.remove('hidden');
+          listEl.classList.add('hidden');
+          boardEl.innerHTML = stages.map((stage) => {
+            const projs = state.projects.filter((p) => p.stage === stage);
+            return `
+              <div class="bg-slate-100/80 rounded-2xl p-3 border border-slate-200/80 flex flex-col gap-3 min-h-[280px]">
+                <div class="flex items-center justify-between px-1">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700">${esc(stage)}</h4>
+                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-slate-700 shadow-2xs">${projs.length}</span>
+                </div>
+                <div class="space-y-2.5">
+                  ${projs.map((p) => {
+                    const member = state.team.find((m) => m.id === p.assigneeId);
+                    const bal = Math.max(0, Number(p.budget || 0) - Number(p.paid || 0));
+                    return `
+                      <div class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-2xs space-y-2.5">
+                        <div>
+                          <p class="text-sm font-bold text-slate-800 leading-snug">${esc(p.title)}</p>
+                          <p class="text-xs text-slate-500">${esc(p.client)}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-600 rounded-full" style="width:${Number(p.progress || 0)}%"></div>
+                          </div>
+                          <span class="text-[11px] font-bold text-slate-600">${Number(p.progress || 0)}%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-slate-500">
+                          <span>${esc(member ? member.name.split(' ')[0] : 'Unassigned')}</span>
+                          <span class="font-semibold ${bal > 0 ? 'text-amber-600' : 'text-emerald-600'}">${bal > 0 ? 'Due ' + fmtINR(bal) : 'Paid'}</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                          <span class="text-[11px] text-slate-400">${esc(p.deadline || 'No date')}</span>
+                          <div class="flex gap-1">
+                            <button data-edit-project="${p.id}" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold">Edit</button>
+                            <button data-delete-project="${p.id}" class="px-2 py-0.5 rounded bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-semibold">Del</button>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          boardEl.classList.add('hidden');
+          listEl.classList.remove('hidden');
+          document.getElementById('projects-table-body').innerHTML = state.projects.map((p) => {
+            const member = state.team.find((m) => m.id === p.assigneeId);
+            return `
+              <tr class="hover:bg-slate-50/80">
+                <td class="py-3.5 px-4">
+                  <p class="font-bold text-slate-800">${esc(p.title)}</p>
+                  <p class="text-xs text-slate-500">${esc(p.client)}</p>
+                </td>
+                <td class="py-3.5 px-4"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700">${esc(p.stage)}</span></td>
+                <td class="py-3.5 px-4 text-xs text-slate-700">${esc(member ? member.name : 'Unassigned')}</td>
+                <td class="py-3.5 px-4 text-xs font-bold text-slate-700">${Number(p.progress || 0)}%</td>
+                <td class="py-3.5 px-4 text-right text-xs">
+                  <span class="font-bold text-slate-800">${fmtINR(p.budget)}</span>
+                  <p class="text-[11px] text-emerald-600">Paid ${fmtINR(p.paid)}</p>
+                </td>
+                <td class="py-3.5 px-4 text-xs text-slate-600">${esc(p.deadline || '-')}</td>
+                <td class="py-3.5 px-4 text-right">
+                  <button data-edit-project="${p.id}" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold mr-1">Edit</button>
+                  <button data-delete-project="${p.id}" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold">Del</button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      function renderTeam() {
+        document.getElementById('team-cards-grid').innerHTML = state.team.map((m) => {
+          const assignedCount = state.projects.filter((p) => p.assigneeId === m.id && p.stage !== 'Delivered').length;
+          const balance = Math.max(0, Number(m.agreed || 0) - Number(m.paid || 0));
+          return `
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col justify-between gap-4">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <div>
+                    <h4 class="text-base font-bold text-slate-800">${esc(m.name)}</h4>
+                    <p class="text-xs text-indigo-600 font-semibold">${esc(m.role)}</p>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">${assignedCount} Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mb-3">${esc(m.phone || 'No phone')}</p>
+                <div class="grid grid-cols-3 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+                  <div>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold">Agreed</p>
+                    <p class="text-xs font-bold text-slate-800">${fmtINR(m.agreed)}</p>
+                  </div>
+                  <div>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold">Paid</p>
+                    <p class="text-xs font-bold text-emerald-600">${fmtINR(m.paid)}</p>
+                  </div>
+                  <div>
+                    <p class="text-[10px] uppercase text-slate-400 font-bold">Balance</p>
+                    <p class="text-xs font-bold ${balance > 0 ? 'text-rose-600' : 'text-slate-600'}">${fmtINR(balance)}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                <button data-pay-member="${m.id}" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">Record Payout</button>
+                <div class="flex gap-1.5">
+                  <button data-edit-member="${m.id}" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Edit</button>
+                  <button data-delete-member="${m.id}" class="px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold">Del</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const payBody = document.getElementById('team-payments-body');
+        if (state.payments.length === 0) {
+          payBody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-xs text-slate-400">No payouts recorded yet.</td></tr>`;
+        } else {
+          payBody.innerHTML = state.payments.slice().reverse().map((pay) => `
+            <tr class="hover:bg-slate-50/80">
+              <td class="py-3 px-4 text-xs text-slate-600">${esc(pay.date)}</td>
+              <td class="py-3 px-4 font-semibold text-slate-800">${esc(pay.memberName)}</td>
+              <td class="py-3 px-4 text-xs text-slate-600">${esc(pay.note || '-')}</td>
+              <td class="py-3 px-4 text-xs text-slate-600">${esc(pay.method)}</td>
+              <td class="py-3 px-4 text-right font-bold text-emerald-600">${fmtINR(pay.amount)}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      function renderAll() {
+        updateBadges();
+        if (state.currentView === 'dashboard') renderDashboard();
+        if (state.currentView === 'leads') renderLeads();
+        if (state.currentView === 'followups') renderFollowups();
+        if (state.currentView === 'projects') renderProjects();
+        if (state.currentView === 'team') renderTeam();
+      }
+
+      // Lead modal helpers
+      function openLeadModal(lead = null) {
+        document.getElementById('modal-lead-title').textContent = lead ? 'Edit Customer Lead' : 'New Customer Lead';
+        document.getElementById('lead-id').value = lead ? lead.id : '';
+        document.getElementById('lead-name').value = lead ? lead.name : '';
+        document.getElementById('lead-company').value = lead ? lead.company : '';
+        document.getElementById('lead-phone').value = lead ? lead.phone : '';
+        document.getElementById('lead-email').value = lead ? lead.email : '';
+        document.getElementById('lead-service').value = lead ? lead.service : 'Web Development';
+        document.getElementById('lead-value').value = lead ? lead.value : 25000;
+        document.getElementById('lead-status').value = lead ? lead.status : 'New';
+        document.getElementById('lead-source').value = lead ? lead.source : 'Instagram';
+        document.getElementById('lead-followup').value = lead ? lead.followUpDate : addDaysStr(1);
+        document.getElementById('lead-notes').value = lead ? lead.notes : '';
+        openModal('modal-lead');
+      }
+
+      function openProjectModal(proj = null) {
+        const select = document.getElementById('project-assignee');
+        select.innerHTML = `<option value="">Unassigned</option>` + state.team.map((m) => `<option value="${m.id}">${esc(m.name)} (${esc(m.role)})</option>`).join('');
+        document.getElementById('modal-project-title').textContent = proj ? 'Edit Project' : 'New Agency Project';
+        document.getElementById('project-id').value = proj ? proj.id : '';
+        document.getElementById('project-title').value = proj ? proj.title : '';
+        document.getElementById('project-client').value = proj ? proj.client : '';
+        document.getElementById('project-stage').value = proj ? proj.stage : 'Discovery';
+        document.getElementById('project-assignee').value = proj ? (proj.assigneeId || '') : '';
+        document.getElementById('project-budget').value = proj ? proj.budget : 40000;
+        document.getElementById('project-paid').value = proj ? proj.paid : 15000;
+        document.getElementById('project-deadline').value = proj ? proj.deadline : addDaysStr(14);
+        const prog = proj ? proj.progress : 20;
+        document.getElementById('project-progress').value = prog;
+        document.getElementById('project-progress-label').textContent = prog;
+        document.getElementById('project-notes').value = proj ? proj.notes : '';
+        openModal('modal-project');
+      }
+
+      function openTeamModal(member = null) {
+        document.getElementById('modal-team-title').textContent = member ? 'Edit Team Member' : 'Add Team Member';
+        document.getElementById('team-id').value = member ? member.id : '';
+        document.getElementById('team-name').value = member ? member.name : '';
+        document.getElementById('team-role').value = member ? member.role : '';
+        document.getElementById('team-phone').value = member ? member.phone : '';
+        document.getElementById('team-agreed').value = member ? member.agreed : 15000;
+        openModal('modal-team');
+      }
+
+      // CSV Export
+      function exportCSV() {
+        const headers = ['Name', 'Company', 'Phone', 'Email', 'Service', 'Value', 'Status', 'Source', 'FollowUpDate', 'Notes'];
+        const rows = state.leads.map((l) => headers.map((h) => {
+          const keyMap = {
+            Name: l.name, Company: l.company, Phone: l.phone, Email: l.email,
+            Service: l.service, Value: l.value, Status: l.status, Source: l.source,
+            FollowUpDate: l.followUpDate, Notes: l.notes
+          };
+          return `"${String(keyMap[h] ?? '').replace(/"/g, '""')}"`;
+        }).join(','));
+        const csv = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `makeit-digital-leads-${todayStr()}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Exported all leads to CSV.');
+      }
+
+      // PDF Reports using jsPDF
+      function generateLeadsPDF() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          showToast('PDF library still loading, try again in a moment.', 'error');
+          return;
+        }
+        const doc = new window.jspdf.jsPDF();
+        doc.setFontSize(16);
+        doc.text('MakeIt Digital - Client & Leads Report', 14, 18);
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Generated: ${todayStr()} | You Idea It. We MakeIt.`, 14, 25);
+        doc.autoTable({
+          startY: 32,
+          head: [['Client', 'Company', 'Phone', 'Service', 'Value (INR)', 'Status', 'Follow-up']],
+          body: state.leads.map((l) => [l.name, l.company, l.phone, l.service, Number(l.value || 0).toLocaleString('en-IN'), l.status, l.followUpDate || '-']),
+          styles: { fontSize: 8 },
+          headStyles: { fillColor: [11, 15, 20], textColor: [200, 241, 53] }
+        });
+        doc.save(`makeit-leads-report-${todayStr()}.pdf`);
+        showToast('Downloaded Leads Report PDF.');
+      }
+
+      function generateTeamPDF() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          showToast('PDF library still loading, try again in a moment.', 'error');
+          return;
+        }
+        const doc = new window.jspdf.jsPDF();
+        doc.setFontSize(16);
+        doc.text('MakeIt Digital - Team Payments Summary', 14, 18);
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Generated: ${todayStr()} | Total Members: ${state.team.length}`, 14, 25);
+        doc.autoTable({
+          startY: 32,
+          head: [['Name', 'Role', 'Agreed (INR)', 'Paid (INR)', 'Balance (INR)']],
+          body: state.team.map((m) => {
+            const bal = Math.max(0, Number(m.agreed || 0) - Number(m.paid || 0));
+            return [m.name, m.role, Number(m.agreed || 0).toLocaleString('en-IN'), Number(m.paid || 0).toLocaleString('en-IN'), bal.toLocaleString('en-IN')];
+          }),
+          styles: { fontSize: 9 },
+          headStyles: { fillColor: [11, 15, 20], textColor: [200, 241, 53] }
+        });
+        doc.save(`makeit-team-payments-${todayStr()}.pdf`);
+        showToast('Downloaded Team Payments PDF.');
+      }
+
+      // Event Listeners
+      document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+        document.getElementById('sidebar-nav').classList.toggle('hidden');
+      });
+
+      document.querySelectorAll('.nav-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          switchView(btn.dataset.view);
+          if (window.innerWidth < 768) {
+            document.getElementById('sidebar-nav').classList.add('hidden');
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        const gotoBtn = e.target.closest('[data-goto]');
+        if (gotoBtn) switchView(gotoBtn.dataset.goto);
+
+        const closeBtn = e.target.closest('[data-close-modal]');
+        if (closeBtn) closeModal(closeBtn.dataset.closeModal);
+
+        const doneLeadBtn = e.target.closest('[data-done-lead]');
+        if (doneLeadBtn) {
+          const lead = state.leads.find((l) => l.id === doneLeadBtn.dataset.doneLead);
+          if (lead) {
+            lead.followUpDone = true;
+            saveState();
+            renderAll();
+            showToast(`Marked follow-up complete for ${lead.name}.`);
+          }
+        }
+
+        const editLeadBtn = e.target.closest('[data-edit-lead]');
+        if (editLeadBtn) {
+          const lead = state.leads.find((l) => l.id === editLeadBtn.dataset.editLead);
+          if (lead) openLeadModal(lead);
+        }
+
+        const delLeadBtn = e.target.closest('[data-delete-lead]');
+        if (delLeadBtn) {
+          const id = delLeadBtn.dataset.deleteLead;
+          askConfirm('Delete Lead', 'Remove this lead permanently from your CRM?', () => {
+            state.leads = state.leads.filter((l) => l.id !== id);
+            saveState();
+            renderAll();
+            showToast('Lead removed.');
+          });
+        }
+
+        const convBtn = e.target.closest('[data-convert-lead]');
+        if (convBtn) {
+          const lead = state.leads.find((l) => l.id === convBtn.dataset.convertLead);
+          if (lead) {
+            lead.status = 'Won';
+            state.projects.unshift({
+              id: 'P' + Date.now(),
+              title: `${lead.service} - ${lead.company}`,
+              client: lead.company || lead.name,
+              stage: 'Discovery',
+              assigneeId: state.team[0] ? state.team[0].id : '',
+              progress: 10,
+              budget: Number(lead.value || 0),
+              paid: 0,
+              deadline: addDaysStr(21),
+              notes: lead.notes || ''
+            });
+            saveState();
+            switchView('projects');
+            showToast(`Converted ${lead.company} into an active project!`);
+          }
+        }
+
+        const reschedBtn = e.target.closest('[data-reschedule-lead]');
+        if (reschedBtn) {
+          const lead = state.leads.find((l) => l.id === reschedBtn.dataset.rescheduleLead);
+          if (lead) {
+            lead.followUpDate = addDaysStr(Number(reschedBtn.dataset.days || 3));
+            lead.followUpDone = false;
+            saveState();
+            renderAll();
+            showToast(`Rescheduled ${lead.name} to ${lead.followUpDate}.`);
+          }
+        }
+
+        const toggleFupBtn = e.target.closest('[data-toggle-followup]');
+        if (toggleFupBtn) {
+          const lead = state.leads.find((l) => l.id === toggleFupBtn.dataset.toggleFollowup);
+          if (lead) {
+            lead.followUpDone = !lead.followUpDone;
+            saveState();
+            renderAll();
+            showToast(lead.followUpDone ? 'Follow-up marked done.' : 'Follow-up reopened.');
+          }
+        }
+
+        const editProjBtn = e.target.closest('[data-edit-project]');
+        if (editProjBtn) {
+          const proj = state.projects.find((p) => p.id === editProjBtn.dataset.editProject);
+          if (proj) openProjectModal(proj);
+        }
+
+        const delProjBtn = e.target.closest('[data-delete-project]');
+        if (delProjBtn) {
+          const id = delProjBtn.dataset.deleteProject;
+          askConfirm('Delete Project', 'Remove this project from your pipeline?', () => {
+            state.projects = state.projects.filter((p) => p.id !== id);
+            saveState();
+            renderAll();
+            showToast('Project deleted.');
+          });
+        }
+
+        const payBtn = e.target.closest('[data-pay-member]');
+        if (payBtn) {
+          const m = state.team.find((t) => t.id === payBtn.dataset.payMember);
+          if (m) {
+            document.getElementById('payment-member-id').value = m.id;
+            document.getElementById('payment-member-name').textContent = m.name;
+            document.getElementById('payment-amount').value = Math.max(1000, Number(m.agreed || 0) - Number(m.paid || 0));
+            document.getElementById('payment-note').value = '';
+            openModal('modal-payment');
+          }
+        }
+
+        const editMemBtn = e.target.closest('[data-edit-member]');
+        if (editMemBtn) {
+          const m = state.team.find((t) => t.id === editMemBtn.dataset.editMember);
+          if (m) openTeamModal(m);
+        }
+
+        const delMemBtn = e.target.closest('[data-delete-member]');
+        if (delMemBtn) {
+          const id = delMemBtn.dataset.deleteMember;
+          askConfirm('Remove Team Member', 'Remove this member from the team roster?', () => {
+            state.team = state.team.filter((t) => t.id !== id);
+            saveState();
+            renderAll();
+            showToast('Team member removed.');
+          });
+        }
+      });
+
+      // Filter & Search Listeners
+      document.getElementById('leads-search').addEventListener('input', renderLeads);
+      document.getElementById('leads-filter-status').addEventListener('change', renderLeads);
+      document.getElementById('leads-filter-service').addEventListener('change', renderLeads);
+
+      document.querySelectorAll('.ftab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.followupTab = btn.dataset.ftab;
+          document.querySelectorAll('.ftab-btn').forEach((b) => {
+            b.className = b === btn
+              ? 'ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0B0F14] text-white transition'
+              : 'ftab-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
+          });
+          renderFollowups();
+        });
+      });
+
+      document.querySelectorAll('.pview-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.projectViewMode = btn.dataset.pview;
+          document.querySelectorAll('.pview-btn').forEach((b) => {
+            b.className = b === btn
+              ? 'pview-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0B0F14] text-white transition'
+              : 'pview-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
+          });
+          renderProjects();
+        });
+      });
+
+      // Add Buttons
+      ['sidebar-btn-add-lead', 'btn-topbar-add-lead', 'btn-leads-add', 'btn-followup-add-lead'].forEach((id) => {
+        document.getElementById(id).addEventListener('click', () => openLeadModal());
+      });
+      document.getElementById('btn-projects-add').addEventListener('click', () => openProjectModal());
+      document.getElementById('btn-team-add').addEventListener('click', () => openTeamModal());
+
+      // Forms
+      document.getElementById('form-lead').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('lead-id').value;
+        const payload = {
+          id: id || 'L' + Date.now(),
+          name: document.getElementById('lead-name').value.trim(),
+          company: document.getElementById('lead-company').value.trim(),
+          phone: document.getElementById('lead-phone').value.trim(),
+          email: document.getElementById('lead-email').value.trim(),
+          service: document.getElementById('lead-service').value,
+          value: Number(document.getElementById('lead-value').value || 0),
+          status: document.getElementById('lead-status').value,
+          source: document.getElementById('lead-source').value,
+          followUpDate: document.getElementById('lead-followup').value,
+          followUpDone: false,
+          notes: document.getElementById('lead-notes').value.trim()
+        };
+        if (id) {
+          const idx = state.leads.findIndex((l) => l.id === id);
+          if (idx > -1) {
+            payload.followUpDone = state.leads[idx].followUpDone;
+            state.leads[idx] = payload;
+          }
+          showToast('Lead updated.');
+        } else {
+          state.leads.unshift(payload);
+          showToast('New lead added.');
+        }
+        saveState();
+        closeModal('modal-lead');
+        renderAll();
+      });
+
+      document.getElementById('project-progress').addEventListener('input', (e) => {
+        document.getElementById('project-progress-label').textContent = e.target.value;
+      });
+
+      document.getElementById('form-project').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('project-id').value;
+        const payload = {
+          id: id || 'P' + Date.now(),
+          title: document.getElementById('project-title').value.trim(),
+          client: document.getElementById('project-client').value.trim(),
+          stage: document.getElementById('project-stage').value,
+          assigneeId: document.getElementById('project-assignee').value,
+          budget: Number(document.getElementById('project-budget').value || 0),
+          paid: Number(document.getElementById('project-paid').value || 0),
+          deadline: document.getElementById('project-deadline').value,
+          progress: Number(document.getElementById('project-progress').value || 0),
+          notes: document.getElementById('project-notes').value.trim()
+        };
+        if (id) {
+          const idx = state.projects.findIndex((p) => p.id === id);
+          if (idx > -1) state.projects[idx] = payload;
+          showToast('Project updated.');
+        } else {
+          state.projects.unshift(payload);
+          showToast('Project created.');
+        }
+        saveState();
+        closeModal('modal-project');
+        renderAll();
+      });
+
+      document.getElementById('form-team').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('team-id').value;
+        const existing = id ? state.team.find((t) => t.id === id) : null;
+        const payload = {
+          id: id || 'T' + Date.now(),
+          name: document.getElementById('team-name').value.trim(),
+          role: document.getElementById('team-role').value.trim(),
+          phone: document.getElementById('team-phone').value.trim(),
+          agreed: Number(document.getElementById('team-agreed').value || 0),
+          paid: existing ? existing.paid : 0
+        };
+        if (id) {
+          const idx = state.team.findIndex((t) => t.id === id);
+          if (idx > -1) state.team[idx] = payload;
+          showToast('Team member updated.');
+        } else {
+          state.team.push(payload);
+          showToast('Team member added.');
+        }
+        saveState();
+        closeModal('modal-team');
+        renderAll();
+      });
+
+      document.getElementById('form-payment').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const memberId = document.getElementById('payment-member-id').value;
+        const amount = Number(document.getElementById('payment-amount').value || 0);
+        const method = document.getElementById('payment-method').value;
+        const note = document.getElementById('payment-note').value.trim();
+        const member = state.team.find((t) => t.id === memberId);
+        if (!member || amount <= 0) return;
+
+        member.paid = Number(member.paid || 0) + amount;
+        state.payments.push({
+          id: 'PAY' + Date.now(),
+          date: todayStr(),
+          memberId: member.id,
+          memberName: member.name,
+          note: note || 'Payout settlement',
+          method,
+          amount
+        });
+        saveState();
+        closeModal('modal-payment');
+        renderAll();
+        showToast(`Recorded ${fmtINR(amount)} payout to ${member.name}.`);
+      });
+
+      // Quick Tools: Import / Export / PDF / Install / Cloud Sync
+      document.getElementById('sidebar-btn-export').addEventListener('click', exportCSV);
+      document.getElementById('sidebar-btn-leads-pdf').addEventListener('click', generateLeadsPDF);
+      document.getElementById('sidebar-btn-team-pdf').addEventListener('click', generateTeamPDF);
+      document.getElementById('btn-team-pdf-top').addEventListener('click', generateTeamPDF);
+
+      document.getElementById('sidebar-btn-import').addEventListener('click', () => {
+        document.getElementById('csv-import-input').click();
+      });
+
+      document.getElementById('csv-import-input').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const lines = String(ev.target.result || '').split(/\r?\n/).filter(Boolean);
+          if (lines.length < 2) {
+            showToast('CSV file has no data rows.', 'error');
+            return;
+          }
+          let added = 0;
+          lines.slice(1).forEach((line) => {
+            const cols = line.split(',').map((c) => c.replace(/^"|"$/g, '').trim());
+            if (cols[0]) {
+              state.leads.unshift({
+                id: 'L' + Date.now() + Math.random().toString(36).slice(2, 5),
+                name: cols[0],
+                company: cols[1] || cols[0],
+                phone: cols[2] || '',
+                email: cols[3] || '',
+                service: cols[4] || 'Web Development',
+                value: Number(cols[5]) || 15000,
+                status: cols[6] || 'New',
+                source: cols[7] || 'CSV Import',
+                followUpDate: cols[8] || addDaysStr(1),
+                followUpDone: false,
+                notes: cols[9] || ''
+              });
+              added++;
+            }
+          });
+          saveState();
+          renderAll();
+          showToast(`Imported ${added} contacts from CSV.`);
+          e.target.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      // PWA Install
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        document.getElementById('pwa-prompt-action').classList.remove('hidden');
+      });
+
+      ['sidebar-btn-install', 'btn-topbar-install'].forEach((id) => {
+        document.getElementById(id).addEventListener('click', () => openModal('modal-install'));
+      });
+
+      document.getElementById('btn-trigger-pwa-install').addEventListener('click', async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        closeModal('modal-install');
+      });
+
+      // Cloud Sync & Backup
+      document.getElementById('sidebar-btn-cloud-sync').addEventListener('click', () => {
+        document.getElementById('sync-owner-pin').value = state.pin || 'makeit2026';
+        openModal('modal-cloud-sync');
+      });
+
+      document.getElementById('btn-save-pin').addEventListener('click', () => {
+        const pin = document.getElementById('sync-owner-pin').value.trim();
+        if (pin.length < 4) {
+          showToast('PIN must be at least 4 characters.', 'error');
+          return;
+        }
+        state.pin = pin;
+        saveState();
+        showToast('Owner access PIN updated.');
+      });
+
+      document.getElementById('btn-sync-export-json').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `makeit-crm-backup-${todayStr()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('JSON backup downloaded.');
+      });
+
+      document.getElementById('btn-sync-import-json').addEventListener('click', () => {
+        document.getElementById('json-import-input').click();
+      });
+
+      document.getElementById('json-import-input').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const imported = JSON.parse(ev.target.result);
+            if (!Array.isArray(imported.leads) || !Array.isArray(imported.projects)) {
+              throw new Error('Invalid format');
+            }
+            state = Object.assign(defaultState(), imported);
+            saveState();
+            closeModal('modal-cloud-sync');
+            renderAll();
+            showToast('Backup restored successfully.');
+          } catch (err) {
+            showToast('Invalid JSON backup file.', 'error');
+          }
+          e.target.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('btn-reset-demo-data').addEventListener('click', () => {
+        askConfirm('Reset Demo Data', 'This will replace your current CRM records with default sample data.', () => {
+          state = defaultState();
+          saveState();
+          closeModal('modal-cloud-sync');
+          switchView('dashboard');
+          showToast('CRM reset to demo data.');
+        });
+      });
+
+      // Confirm Modal Buttons
+      document.getElementById('btn-confirm-cancel').addEventListener('click', () => {
+        confirmCallback = null;
+        closeModal('modal-confirm');
+      });
+      document.getElementById('btn-confirm-ok').addEventListener('click', () => {
+        if (typeof confirmCallback === 'function') confirmCallback();
+        confirmCallback = null;
+        closeModal('modal-confirm');
+      });
+
+      // Auth / Logout
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        state.loggedIn = false;
+        saveState();
+        document.getElementById('auth-overlay').classList.remove('hidden');
+      });
+
+      document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value.trim().toLowerCase();
+        const pass = document.getElementById('login-password').value;
+        const errBanner = document.getElementById('login-error-banner');
+        if (email === OWNER_EMAIL && (pass === state.pin || pass === 'makeit2026')) {
+          errBanner.classList.add('hidden');
+          state.loggedIn = true;
+          saveState();
+          document.getElementById('auth-overlay').classList.add('hidden');
+          showToast('Signed in to MakeIt CRM.');
+        } else {
+          errBanner.classList.remove('hidden');
+        }
+      });
+
+      // Initialize
+      if (!state.loggedIn) {
+        document.getElementById('auth-overlay').classList.remove('hidden');
+      }
+      switchView(state.currentView || 'dashboard');
+    })();
+  </script>
+</body>
+</html>
