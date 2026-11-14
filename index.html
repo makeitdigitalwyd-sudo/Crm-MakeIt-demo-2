@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta id="app-viewport-meta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Puthenpurayil Doors - Client & Project CRM</title>
   <!-- Progressive Web App (PWA) Manifest & Meta -->
   <meta name="theme-color" content="#14181F">
@@ -2372,10 +2372,11 @@
 
       // --- RENDERING VIEWS ---
       const LAYOUT_MODE_KEY = 'makeit_crm_layout_mode_v1';
-      let layoutMode = 'site';
+      let layoutMode = 'app';
 
       function applyLayoutMode(mode, save = true) {
-        layoutMode = mode === 'app' ? 'app' : 'site';
+        layoutMode = mode === 'site' ? 'site' : 'app';
+        const vp = document.getElementById('app-viewport-meta');
         const shell = document.getElementById('app-shell');
         const sidebar = document.getElementById('app-sidebar');
         const nav = document.getElementById('sidebar-nav');
@@ -2386,26 +2387,28 @@
         const btnApp = document.getElementById('btn-mode-app');
 
         if (layoutMode === 'app') {
+          if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes');
           shell.className = 'flex-1 flex flex-col min-h-screen max-w-md w-full mx-auto bg-slate-50 shadow-2xl border-x border-slate-200';
           sidebar.className = 'w-full bg-slate-900 text-slate-300 flex flex-col shrink-0 border-b border-slate-800';
           nav.classList.add('hidden');
-          nav.classList.remove('md:block');
-          toggle.classList.remove('md:hidden');
+          nav.classList.remove('block', 'md:block');
+          toggle.classList.remove('hidden', 'md:hidden');
           main.classList.add('pb-24');
           bottomNav.classList.remove('hidden');
           bottomNav.classList.add('max-w-md', 'mx-auto');
           btnApp.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#14181F] text-[#F5A623] shadow-2xs';
           btnSite.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-slate-500 hover:text-slate-800';
         } else {
-          shell.className = 'flex-1 flex flex-col md:flex-row min-h-screen';
-          sidebar.className = 'w-full md:w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 border-r border-slate-800';
-          nav.classList.add('md:block');
-          if (window.innerWidth < 768) nav.classList.add('hidden');
-          toggle.classList.add('md:hidden');
+          if (vp) vp.setAttribute('content', 'width=1180, initial-scale=0.33, minimum-scale=0.25, maximum-scale=3.0, user-scalable=yes');
+          shell.className = 'flex-1 flex flex-row min-h-screen min-w-[1024px] w-full';
+          sidebar.className = 'w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 border-r border-slate-800';
+          nav.classList.remove('hidden');
+          nav.classList.add('block');
+          toggle.classList.add('hidden');
           main.classList.remove('pb-24');
           bottomNav.classList.add('hidden');
           bottomNav.classList.remove('max-w-md', 'mx-auto');
-          btnSite.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-white text-slate-900 shadow-2xs';
+          btnSite.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#14181F] text-[#F5A623] shadow-2xs';
           btnApp.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-slate-500 hover:text-slate-800';
         }
 
@@ -2415,8 +2418,9 @@
       }
 
       function closeMobileSidebar() {
+        if (layoutMode === 'site') return;
         const nav = document.getElementById('sidebar-nav');
-        if (nav && (window.innerWidth < 768 || layoutMode === 'app')) {
+        if (nav) {
           nav.classList.add('hidden');
         }
       }
@@ -4900,9 +4904,10 @@
         setupTeamListeners();
         try {
           const savedMode = localStorage.getItem(LAYOUT_MODE_KEY);
-          applyLayoutMode(savedMode === 'app' ? 'app' : 'site', false);
+          const defaultMode = window.innerWidth < 768 ? 'app' : 'site';
+          applyLayoutMode(savedMode || defaultMode, false);
         } catch (e) {
-          applyLayoutMode('site', false);
+          applyLayoutMode(window.innerWidth < 768 ? 'app' : 'site', false);
         }
         renderApp();
       });
