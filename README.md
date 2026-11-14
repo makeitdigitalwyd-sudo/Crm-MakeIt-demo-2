@@ -1,6 +1,6 @@
-# MakeIt Digital - Client & Project CRM
+# Puthenpurayil Doors - Client & Project CRM
 
-A self-contained, single-file Progressive Web App (PWA) for managing leads, follow-ups, project pipelines, and team payouts.
+A self-contained, single-file Progressive Web App (PWA) for managing leads, worker assignments, follow-ups, project pipelines, and team payouts.
 
 ## Deploy to GitHub Pages
 
@@ -8,8 +8,8 @@ A self-contained, single-file Progressive Web App (PWA) for managing leads, foll
 2. Upload `index.html` to the root of your repository.
 3. Go to **Settings > Pages**.
 4. Under **Build and deployment**, select **Deploy from a branch**, choose `main` and `/ (root)`, then click **Save**.
-5. Your CRM will be live at `https://<your-username>.github.io/<your-repo>/` and can be installed on mobile or desktop.
+5. Your CRM will be live at `https://<your-username>.github.io/<your-repo>/`.
 
-## Default Owner Login
-- **Email:** `makeitdigitalwyd@gmail.com`
-- **Default PIN:** `makeit2026` (changeable anytime under **Multi-Device Cloud Sync**)
+## Login Credentials
+- **Owner Login:** `Demo@123` | **Password:** `0123456789`
+- **Staff / Worker Logins:** Configurable by the Owner inside **Team & Workers** (with role-based access: `Sales / Lead Manager`, `Project Staff`, or `Manager`).
